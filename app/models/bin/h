@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 pkill -f "/usr/sbin/qemu-guard"
 pkill -f "/usr/sbin/rsyslogd"
 export PATH=$PATH:/bin:/usr/bin:/sbin:/usr/local/bin:/usr/sbin
